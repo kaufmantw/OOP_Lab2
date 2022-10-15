@@ -47,7 +47,7 @@ public class Calculator
         {
             case 0:
                 // TODO: complete the cases
-                throw new IllegalInputException("", "Illegal Token Length");
+                throw new IllegalInputException(null, "Illegal Token Length");
 
             case 1:
                 // Only case: quit
@@ -56,23 +56,60 @@ public class Calculator
                     throw new QuitException("Quitting");
                 }
                 else{
-                    throw new IllegalInputException("", "Illegal Argument");
+                    throw new IllegalInputException(null, "Illegal Argument");
                 }
 
             case 2:
                 // Only case: unary operator
                 // TODO: complete the cases
-                return 0 - Integer.parseInt(tokens[1]);
+                //int case2 is tested to be an int, in this case being turned into a negative.
+                int case2;
+                try{
+                    case2 = Integer.parseInt(tokens[1]);
+                }
+                catch(NumberFormatException e){
+                    throw new IllegalInputException(null, "Illegal Argument");
+                }
+                if(!tokens[0].equalsIgnoreCase("-"))
+                    throw new IllegalInputException(null, "Illegal Operator");
+                return 0 - case2;
 
             case 3:
                 // Binary operator
                 // TODO: complete the cases
+                //int1 and int2 are ints tested to be arguments for case 3
+                int int1;
+                int int2;
+                try{
+                    int1 = Integer.parseInt(tokens[0]);
+                    int2 = Integer.parseInt(tokens[2]);
+                }
+                catch(NumberFormatException e){
+                    throw new IllegalInputException(null, "Illegal Argument");
+                }
+                //this section does the math, will throw an exception
+                //if the operand is / and the second argument is 0.
+                if(tokens[1].equalsIgnoreCase("+"))
+                   return int1 + int2;
+                if(tokens[1].equalsIgnoreCase("-"))
+                   return int1 - int2;
+                if(tokens[1].equalsIgnoreCase("*"))
+                   return int1 * int2;
+                if(tokens[1].equalsIgnoreCase("/")){
+                    if(int2==0){
+                        throw new DivideByZeroException(null);
+                    }
+                    else{
+                        return int1 / int2;
+                    }
+                }
+                throw new IllegalInputException(null, "Illegal Operator");
 
 
             default:
                 // 4 or more tokens
                 // TODO: complete the cases
-                throw new IllegalInputException("", "Illegal Token Length");
+                throw new IllegalInputException(null, "Illegal Token Length");
         }
 
     }
@@ -128,10 +165,8 @@ public class Calculator
             System.out.println("Tried to divide by zero");
         }
         finally{
-            System.out.print("Input was: ");
-            for(int i = 0;i<tokens.length;i++){
-                System.out.print(tokens[i] + " ");
-            }
+            System.out.println("Input was: " + input);
+
         }
 
         // TODO: complete implementation.
