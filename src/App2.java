@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
  *
  */
 
-public class Driver {
+public class App2 {
 
     /**
      * @param args Not used
