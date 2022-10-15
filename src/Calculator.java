@@ -70,9 +70,11 @@ public class Calculator
                 catch(NumberFormatException e){
                     throw new IllegalInputException(null, "Illegal Argument");
                 }
-                if(!tokens[0].equalsIgnoreCase("-"))
-                    throw new IllegalInputException(null, "Illegal Operator");
-                return 0 - case2;
+                if(tokens[0].equalsIgnoreCase("-"))
+                    return 0 - case2;
+                if(tokens[0].equalsIgnoreCase("+"))
+                    return case2;
+                throw new IllegalInputException(null, "Illegal Operator");
 
             case 3:
                 // Binary operator
@@ -103,6 +105,7 @@ public class Calculator
                         return int1 / int2;
                     }
                 }
+                //if the operand is a symbol we don't recognize, throw this exception
                 throw new IllegalInputException(null, "Illegal Operator");
 
 
