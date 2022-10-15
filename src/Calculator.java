@@ -47,14 +47,22 @@ public class Calculator
         {
             case 0:
                 // TODO: complete the cases
+                throw new IllegalInputException("", "Illegal Token Length");
 
             case 1:
                 // Only case: quit
                 // TODO: complete the cases
+                if(tokens[0].equalsIgnoreCase("quit")){
+                    throw new QuitException("Quitting");
+                }
+                else{
+                    throw new IllegalInputException("", "Illegal Argument");
+                }
 
             case 2:
                 // Only case: unary operator
                 // TODO: complete the cases
+                return 0 - Integer.parseInt(tokens[1]);
 
             case 3:
                 // Binary operator
@@ -64,6 +72,7 @@ public class Calculator
             default:
                 // 4 or more tokens
                 // TODO: complete the cases
+                throw new IllegalInputException("", "Illegal Token Length");
         }
 
     }
@@ -98,19 +107,31 @@ public class Calculator
         try 
         {
             // TODO: complete implementation.
+            int result = compute(tokens);
+            System.out.println("The result is " + result);
         }
         catch (QuitException e)
         {
             // TODO: complete implementation.
+            System.out.println(e.getMessage());
+            return true;
         }
         catch (IllegalInputException e)
         {
             // TODO: complete implementation.
+            System.out.println("Illegal input: " +  e.getIllegalType());
         }
         catch (CalculatorException e)
         {
             // This catches the remaining CalculatorException case: DivideByZeroException
             // TODO: complete implementation.
+            System.out.println("Tried to divide by zero");
+        }
+        finally{
+            System.out.print("Input was: ");
+            for(int i = 0;i<tokens.length;i++){
+                System.out.print(tokens[i] + " ");
+            }
         }
 
         // TODO: complete implementation.
